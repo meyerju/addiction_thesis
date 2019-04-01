@@ -26,7 +26,6 @@ export const fetchPatients = (token, userId) => {
         dispatch(fetchPatientsStart());
         axios.get( '/patients.json')
             .then( res => {
-                console.log(res)
                 const fetchedPatients = [];
                 for ( let key in res.data ) {
                     fetchedPatients.push( {

@@ -6,25 +6,57 @@ import axios from '../../axios-patients';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import * as patientPresenter from '../../store/presenters/patient';
+
+import styles from './Patients.css';
 
 class Patients extends Component {
-    componentDidMount () {
+    state = {
+        currentPage: 0,
+    }
+
+    componentDidMount() {
         this.props.onFetchPatients(this.props.token, this.props.userId);
     }
 
-    render () {
-        console.log(this.props.patients)
+    render() {
+        const { currentPage } = this.state;
+        const rowsPerPage = 10;
         let patients = <Spinner />;
-        if ( !this.props.loading ) {
-            patients = this.props.patients.map( patient => (
-                <Patient
-                    key={patient.id}
-                    patient={patient}/>
-            ) )
+        let columnsTable = patientPresenter.default.presentForTable();
+        if (!this.props.loading) {
+            patients = this.props.patients
+                .slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                    return (
+                        <div className={styles.table__row} key={row.id}>
+                            {columnsTable
+                                .map((column) =>
+                                    <div className={styles.table__cell} key={row.id + column.id}>
+                                        <span>{patientPresenter.default.presentOneTableElement(row, column)}</span>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    );
+                })
         }
+
         return (
-            <div>
-                {patients}
+            <div className={styles.table}>
+                <div className={styles.header}>
+                    {columnsTable
+                        .map(
+                            (column) => (
+                                <div className={styles.header__cell} key={column.id}>
+                                    <span>{column.label}</span>
+                                </div>
+                            ), this)
+                    }
+                </div>
+                <div className={styles.table__body}>
+                    {patients}
+                </div>
             </div>
         );
     }
@@ -41,8 +73,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchPatients: (token, userId) => dispatch( actions.fetchPatients(token, userId) )
+        onFetchPatients: (token, userId) => dispatch(actions.fetchPatients(token, userId))
     };
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Patients, axios ) );
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Patients, axios));

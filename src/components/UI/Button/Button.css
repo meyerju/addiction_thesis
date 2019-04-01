@@ -20,10 +20,10 @@
     cursor: not-allowed;
 }
 
-.Success {
+.Green {
     color: #5C9210;
 }
 
-.Danger {
-    color: #944317;
+.Blue {
+    color: #3ab1e2;;
 }
