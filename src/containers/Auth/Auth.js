@@ -43,7 +43,7 @@ class Auth extends Component {
                 touched: false
             }
         },
-        isSignup: true
+        isSignup: false
     }
 
     componentDidMount() {
@@ -115,7 +115,7 @@ class Auth extends Component {
         return (
             <Layout>
                 <div className={classes.Auth}>
-                   <Titlebanner title={this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}/>
+                   <Titlebanner title={this.state.isSignup ? 'SIGN UP' : 'SIGN IN'}/>
                     {authRedirect}
                     {errorMessage}
                     <form onSubmit={this.submitHandler}>
