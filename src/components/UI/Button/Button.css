@@ -1,13 +1,18 @@
 .Button {
-    background-color: transparent;
+    background-color: #40A4C8;
+    border-radius: 5px;
     border: none;
     color: white;
     outline: none;
     cursor: pointer;
     font: inherit;
-    padding: 10px;
-    margin: 10px;
+    padding: 10px 20px!important;
+    margin: 0px 5px;
+    text-align: center !important;
     font-weight: bold;
+    display: inline-block;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
 .Button:first-of-type {
@@ -16,14 +21,10 @@
 }
 
 .Button:disabled {
-    color: #ccc;
+    background-color: #ccc;
     cursor: not-allowed;
 }
 
-.Green {
-    color: #5C9210;
-}
-
-.Blue {
-    color: #3ab1e2;;
+.Button:hover{
+    background-color: lightblue;
 }

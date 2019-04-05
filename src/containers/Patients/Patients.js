@@ -11,6 +11,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import * as patientPresenter from '../../store/presenters/patient';
 
 import styles from './Patients.css';
+import Layout from '../../hoc/Layout/Layout';
 
 class Patients extends Component {
     state = {
@@ -45,7 +46,7 @@ class Patients extends Component {
         }
 
         return (
-            <Page>
+            <Layout>
                 <TitleBanner title={"My Patients"}/>
                 <div className={styles.table}>
                     <div className={styles.header}>
@@ -62,7 +63,7 @@ class Patients extends Component {
                         {patients}
                     </div>
                 </div>
-            </Page>
+            </Layout>
         );
     }
 }
