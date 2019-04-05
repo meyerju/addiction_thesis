@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
+import Page from "../../components/Layout/Page/Page";
 import Patient from '../../components/Patient/Patient';
 import axios from '../../axios-patients';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
@@ -43,21 +45,24 @@ class Patients extends Component {
         }
 
         return (
-            <div className={styles.table}>
-                <div className={styles.header}>
-                    {columnsTable
-                        .map(
-                            (column) => (
-                                <div className={styles.header__cell} key={column.id}>
-                                    <span>{column.label}</span>
-                                </div>
-                            ), this)
-                    }
+            <Page>
+                <TitleBanner title={"My Patients"}/>
+                <div className={styles.table}>
+                    <div className={styles.header}>
+                        {columnsTable
+                            .map(
+                                (column) => (
+                                    <div className={styles.header__cell} key={column.id}>
+                                        <span>{column.label}</span>
+                                    </div>
+                                ), this)
+                        }
+                    </div>
+                    <div className={styles.table__body}>
+                        {patients}
+                    </div>
                 </div>
-                <div className={styles.table__body}>
-                    {patients}
-                </div>
-            </div>
+            </Page>
         );
     }
 }

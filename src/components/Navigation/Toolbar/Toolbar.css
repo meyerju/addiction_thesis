@@ -4,11 +4,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #3ab1e2;
+    background-color: white;
+    border-bottom: 1px solid #ededed;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 15%;
     box-sizing: border-box;
     z-index: 90;
 }
