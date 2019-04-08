@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
-import Page from "../../components/Layout/Page/Page";
-import Patient from '../../components/Patient/Patient';
 import axios from '../../axios-patients';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
