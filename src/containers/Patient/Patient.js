@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactFileReader from 'react-file-reader';
 import { connect } from 'react-redux';
 
 import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
@@ -8,17 +7,26 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import * as patientPresenter from '../../store/presenters/patient';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 import styles from './Patient.css';
 import Layout from '../../hoc/Layout/Layout';
+import DragAndDrop from '../../components/UI/DragAndDrop/DragAndDrop'
 
 class Patient extends Component {
+    handleDrop = files => {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            // Use reader.result
+            console.log(reader.result);
+        }
+        reader.readAsText(files[0]);
+    }
+
     handleFiles = files => {
         var reader = new FileReader();
         reader.onload = function (e) {
             // Use reader.result
-            alert(reader.result)
+            console.log(reader.result);
         }
         reader.readAsText(files[0]);
     }
@@ -34,14 +42,7 @@ class Patient extends Component {
         return (
             <Layout>
                 {patient}
-                <div className={styles.upload}>
-                    <CloudUploadIcon className={styles.icon} />
-                    <span className={styles.drag}>Drag and Drop your csv file here.</span>
-                    <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.csv'}><span className={styles.browse}>Or
-                        <button className={styles.browse__button}>browse</button>
-                        to choose a file </span> </ReactFileReader>
-                </div>
-
+                <DragAndDrop handleFiles={this.handleFiles} handleDrop={this.handleDrop} />
             </Layout>
         );
     }
