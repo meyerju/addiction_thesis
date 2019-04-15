@@ -100,10 +100,9 @@ class Auth extends Component {
         }
 
         let errorMessage = null;
-
         if (this.props.error) {
             errorMessage = (
-                <p className={classes.Error}>{this.props.error.message}</p>
+                <p className={classes.Error}>{this.props.error}</p>
             );
         }
 

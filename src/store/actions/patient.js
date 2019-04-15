@@ -1,14 +1,14 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-patients';
 
-export const fetchPatientsSuccess = ( fetchedPatients ) => {
+export const fetchPatientsSuccess = (fetchedPatients) => {
     return {
         type: actionTypes.FETCH_PATIENTS_SUCCESS,
         patients: fetchedPatients
     };
 };
 
-export const fetchPatientsFail = ( error ) => {
+export const fetchPatientsFail = (error) => {
     return {
         type: actionTypes.FETCH_PATIENTS_FAIL,
         error: error
@@ -24,19 +24,32 @@ export const fetchPatientsStart = () => {
 export const fetchPatients = (token, userId) => {
     return dispatch => {
         dispatch(fetchPatientsStart());
-        axios.get( '/patients.json')
-            .then( res => {
+        axios.get('/patients.json')
+            .then(res => {
                 const fetchedPatients = [];
-                for ( let key in res.data ) {
-                    fetchedPatients.push( {
+                for (let key in res.data) {
+                    fetchedPatients.push({
                         ...res.data[key],
                         id: key
-                    } );
+                    });
                 }
                 dispatch(fetchPatientsSuccess(fetchedPatients));
-            } )
-            .catch( err => {
+            })
+            .catch(err => {
                 dispatch(fetchPatientsFail(err));
-            } );
+            });
+    };
+};
+
+export const chosePatient = (patient) => {
+    return dispatch => {
+        dispatch(getPatient(patient));
+    }
+};
+
+export const getPatient = (patient) => {
+    return {
+        type: actionTypes.CHOSE_PATIENT,
+        patient: patient
     };
 };

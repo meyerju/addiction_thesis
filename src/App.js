@@ -3,8 +3,8 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
-import Layout from './hoc/Layout/Layout';
 import Patients from './containers/Patients/Patients';
+import Patient from './containers/Patient/Patient';
 import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
 
@@ -31,6 +31,7 @@ class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={asyncAuth} />
           <Route path="/" exact component={Patients} />
+          <Route path="/patient" exact component={Patient} />
           <Redirect to="/" />
         </Switch>
       );

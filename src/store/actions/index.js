@@ -1,5 +1,6 @@
 export {
-    fetchPatients
+    fetchPatients,
+    chosePatient
 } from './patient';
 export {
     auth,

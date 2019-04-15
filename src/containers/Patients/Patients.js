@@ -20,6 +20,11 @@ class Patients extends Component {
         this.props.onFetchPatients(this.props.token, this.props.userId);
     }
 
+    chosePatientHandler(row){
+        this.props.onChosePatient(row);
+        this.props.history.push('/patient');
+    }
+
     render() {
         const { currentPage } = this.state;
         const rowsPerPage = 10;
@@ -30,7 +35,7 @@ class Patients extends Component {
                 .slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage)
                 .map((row) => {
                     return (
-                        <div className={styles.table__row} key={row.id}>
+                        <button onClick={() => this.chosePatientHandler(row)} className={styles.table__row} key={row.id}>
                             {columnsTable
                                 .map((column) =>
                                     <div className={styles.table__cell} key={row.id + column.id}>
@@ -38,7 +43,7 @@ class Patients extends Component {
                                     </div>
                                 )
                             }
-                        </div>
+                        </button>
                     );
                 })
         }
@@ -77,7 +82,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchPatients: (token, userId) => dispatch(actions.fetchPatients(token, userId))
+        onFetchPatients: (token, userId) => dispatch(actions.fetchPatients(token, userId)),
+        onChosePatient: (patient) => dispatch(actions.chosePatient(patient)),
     };
 };
 

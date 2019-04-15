@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import * as CryptoJS from 'crypto-js';
+import { URL_API } from '../environnement/environnement';
 import * as actionTypes from './actionTypes';
 
 export const authStart = () => {
@@ -17,6 +18,7 @@ export const authSuccess = (token, userId) => {
 };
 
 export const authFail = (error) => {
+    console.log(error)
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -24,19 +26,8 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
     return {
         type: actionTypes.AUTH_LOGOUT
-    };
-};
-
-export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout());
-        }, expirationTime * 1000);
     };
 };
 
@@ -48,22 +39,11 @@ export const auth = (email, password, isSignup) => {
             password: password,
             returnSecureToken: true
         };
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBHJvq_bLIeMPx9kvX_PqItTyL_4I03n8I';
         if (!isSignup) {
-            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBHJvq_bLIeMPx9kvX_PqItTyL_4I03n8I';
+            signIn(authData, dispatch);
+        } else {
+            signUp(authData, dispatch);
         }
-        axios.post(url, authData)
-            .then(response => {
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.localId);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-                dispatch(checkAuthTimeout(response.data.expiresIn));
-            })
-            .catch(err => {
-                dispatch(authFail(err.response.data.error));
-            });
     };
 };
 
@@ -84,10 +64,73 @@ export const authCheckState = () => {
             if (expirationDate <= new Date()) {
                 dispatch(logout());
             } else {
-                const userId = localStorage.getItem('userId');
+                const userId = localStorage.getItem('user').id;
                 dispatch(authSuccess(token, userId));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
-            }   
+            }
         }
     };
 };
+
+export const saltPassword = (salt, password) => {
+    console.log("salt password ", password, salt);
+    const salted = password + '{' + salt + '}';
+    let digest = CryptoJS.SHA512(salted);
+
+    for (let i = 1; i < 5000; i++) {
+        digest = CryptoJS.SHA512(digest.concat(CryptoJS.enc.Utf8.parse(salted)));
+    }
+
+    const saltedPassword = CryptoJS.enc.Base64.stringify(digest);
+    console.log("saltedPassword ", saltedPassword);
+
+    return saltedPassword;
+}
+
+export const signUp = (authData, dispatch) => {
+    axios.get(URL_API+"/initialize/" + authData.email).then(response => {
+        if (response) {
+            console.log("[STEP1]", response)
+            const saltedPassword = saltPassword(response.data.salt, authData.password);
+            authData.password = saltedPassword;
+            authData.salt = response.data.salt;
+            console.log("[STEP1]body", authData)
+            axios.put(URL_API+'/therapists', authData)
+                .then(response => {
+                    console.log("[STEP2]", response)
+                    localStorage.setItem('token', response.data.idToken);
+                    dispatch(authSuccess(response.data.idToken, response.data.localId));
+                })
+                .catch(err => {
+                    console.log("[STEP2]err", err)
+                    dispatch(authFail("err"));
+                });
+        }
+    }).catch(err => {
+        console.log("[STEP1]err", err)
+        dispatch(authFail("err"));
+    });
+}
+
+export const signIn = (authData, dispatch) => {
+    axios.get(URL_API+"/salt/" + authData.email).then(response => {
+        console.log("salt", response)
+        const getSalt = response.data.salt;
+        authData.saltedPassword = saltPassword(getSalt, authData.password);
+        delete authData.password;
+        axios.post(URL_API+'/login', authData).then(data => {
+            if (data) {
+                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+                localStorage.setItem('token', response.data.idToken);
+                dispatch(authSuccess(response.data.idToken, response.data.localId));
+            } else {
+                dispatch(authFail('Bad credentials'));
+            }
+        }).catch(err => {
+            console.log("[STEP2]err", err)
+            dispatch(authFail("err"));
+        });
+    }).catch(err => {
+        console.log("[STEP1]err", err)
+        dispatch(authFail("err"));
+    });
+}

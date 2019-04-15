@@ -20,10 +20,10 @@ export default (() => {
         if(!cell.type){
             return '';
         }
-        if(cell.type == "array"){
+        if(cell.type === "array"){
             return presentArrayAsString(row[cell.id]);
         }
-        if(cell.type =="date"){
+        if(cell.type === "date"){
             return presentDateAsString(row[cell.id]);
         }
         return row[cell.id];
