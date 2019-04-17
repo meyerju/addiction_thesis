@@ -1,9 +1,10 @@
 export {
     fetchPatients,
-    chosePatient
+    chosePatient,
 } from './patient';
 export {
     load,
+    fetchFiles
 } from './load';
 export {
     auth,

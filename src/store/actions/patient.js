@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-patients';
+import { URL_API } from '../environnement/environnement';
 
 export const fetchPatientsSuccess = (fetchedPatients) => {
     return {
@@ -22,7 +23,18 @@ export const fetchPatientsStart = () => {
 };
 
 export const fetchPatients = (token, userId) => {
+    let error = null;
     return dispatch => {
+        axios.get(URL_API+"/patients/"+userId)
+        .catch(err => {
+            error = err;
+            dispatch(fetchPatientsFail(err));
+        })
+        .then(res => {
+            if(!error){
+                dispatch(fetchPatientsSuccess(res.data));
+            }
+         });
       
     };
 };

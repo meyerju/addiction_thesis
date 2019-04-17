@@ -21,16 +21,60 @@ export const loadStart = () => {
     };
 };
 
-export const load = (file) => {
+export const load = (file, patientId) => {
+    let error = null;
     return dispatch => {
         dispatch(loadStart());
-        axios.post(URL_API+"/file/load", file)
-            .then(res => {
-               console.log("[LOAD] success, ",res)
-                dispatch(loadSuccess());
-            })
+        axios.post(URL_API + "/file/load", file)
             .catch(err => {
+                error = err;
                 dispatch(loadFail(err));
+            })
+            .then(res => {
+                if (!error) {
+                    console.log("[LOAD] success, ", res)
+                    dispatch(loadSuccess());
+                    dispatch(fetchFiles(patientId));
+                }
+            });
+    };
+};
+
+
+export const fetchFilesSuccess = (files) => {
+    return {
+        type: actionTypes.FETCH_FILE_SUCCESS,
+        files:files
+    };
+};
+
+export const fetchFilesFail = (error) => {
+    return {
+        type: actionTypes.FETCH_FILE_FAIL,
+        error: error
+    };
+};
+
+export const fetchFilesStart = () => {
+    return {
+        type: actionTypes.FETCH_FILE_START
+    };
+};
+
+export const fetchFiles = (patientId) => {
+    let error = null;
+    return dispatch => {
+        dispatch(fetchFilesStart());
+        axios.get(URL_API + "/files/" + patientId)
+            .catch(err => {
+                error = err;
+                dispatch(fetchFilesFail(err));
+            })
+            .then(res => {
+                if (!error) {
+                    console.log("[FETCHFILE] success, ", res)
+                    dispatch(fetchFilesSuccess(res.data));
+                }
             });
     };
 };

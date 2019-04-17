@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
     purchased: false,
     patient: null,
+    files:[]
 };
 
 const fetchPatientsStart = ( state, action ) => {
@@ -24,17 +25,37 @@ const fetchPatientsFail = ( state, action ) => {
 };
 
 const chosePatient = ( state, action ) => {
-    console.log(action)
     return updateObject( state, { patient: action.patient } );
 };
 
+const fetchFilesStart = ( state, action ) => {
+    return updateObject( state, { error: null, loading: true } );
+};
+
+const fetchFilesSuccess = (state, action) => {
+    return updateObject( state, { 
+        error: null,
+        loading: false,
+        files: action.files
+     } );
+};
+
+const fetchFilesFail = (state, action) => {
+    return updateObject( state, {
+        error: action.error,
+        loading: false
+    });
+};
+
 const reducer = ( state = initialState, action ) => {
-    console.log(action)
     switch ( action.type ) {
         case actionTypes.FETCH_PATIENTS_START: return fetchPatientsStart( state, action );
         case actionTypes.FETCH_PATIENTS_SUCCESS: return fetchPatientsSuccess( state, action );
         case actionTypes.FETCH_PATIENTS_FAIL: return fetchPatientsFail( state, action );
         case actionTypes.CHOSE_PATIENT: return chosePatient( state, action );
+        case actionTypes.FETCH_FILE_START: return fetchFilesStart(state, action);
+        case actionTypes.FETCH_FILE_SUCCESS: return fetchFilesSuccess(state, action);
+        case actionTypes.FETCH_FILE_FAIL: return fetchFilesFail(state, action);
         default: return state;
     }
 };

@@ -3,7 +3,7 @@ import { updateObject } from '../../shared/utility';
 
 const initialState = {
     token: 'ff',
-    userId: null,
+    userId: 1,
     error: null,
     loading: false,
     authRedirectPath: '/'
@@ -16,7 +16,7 @@ const authStart = ( state, action ) => {
 const authSuccess = (state, action) => {
     return updateObject( state, { 
         token: action.idToken,
-        userId: action.userId,
+        // userId: action.userId,
         error: null,
         loading: false
      } );
@@ -30,7 +30,10 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: "gg", userId: null });
+    return updateObject(state, { 
+        token: "gg", 
+        // userId: null 
+    });
 };
 
 const setAuthRedirectPath = (state, action) => {
