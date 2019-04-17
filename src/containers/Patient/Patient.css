@@ -22,5 +22,34 @@
   box-shadow: 0 2px 3px #ccc;
   padding: 10px;
   margin: 10px auto;
-  box-sizing: border-box;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.file {
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 10px;
+  margin: 10px auto;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.file_info{
+  display:flex;
+  flex-direction: column;
+}
+.file_icon{
+  display:flex;
+  font-size: 30px;
+  color: #d50b33;;
+  align-items: center;
+}
+
+.file_icon:hover{
+  color: grey;
+  cursor: pointer;
 }

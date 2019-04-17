@@ -56,15 +56,19 @@ class Patient extends Component {
         if (this.props.files) {
             patientFiles =
                 this.props.files
-                    .map((file) => 
-                    <div className={styles.info}>
-                        {filePresenter.default.present(file)
-                            .map((i) =>
-                                <p>{i.label}: {i.value}</p>
-                            )
-                        }
-                        <DeleteIcon onClick={() => this.deleteFile(file.id)} />
-                    </div>
+                    .map((file) =>
+                        <div className={styles.file}>
+                            <div className={styles.file_info}>
+                                {filePresenter.default.present(file)
+                                    .map((i) =>
+                                        <span><span className={styles.bold}>{i.label}: </span>{i.value}</span>
+                                    )
+                                }
+                            </div>
+                            <div className={styles.file_icon}>
+                                <DeleteIcon fontSize={"large"} onClick={() => this.deleteFile(file.id)} />
+                            </div>
+                        </div>
                     )
         }
         if (this.props.loading) {
