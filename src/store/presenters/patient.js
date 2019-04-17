@@ -18,8 +18,17 @@ export default (() => {
         ]
     };
 
+    const present = (patient) => {
+        console.log(patient)
+        return [
+            { label: "Name", value:patient.person.name},
+            { label: "Surname", value:patient.person.surname.toUpperCase()}
+        ]
+    };
+
     return {
         presentForTable,
-        presentOneTableElement
+        presentOneTableElement,
+        present
     };
 })();

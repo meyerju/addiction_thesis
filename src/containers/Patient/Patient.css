@@ -53,3 +53,13 @@
   color: grey;
   cursor: pointer;
 }
+
+#chart {
+  background: #fff !important;
+  width: 90%;
+  margin: 1em auto;
+}
+
+.c3 path, .c3 line, .tick text { 
+  stroke: white;
+}

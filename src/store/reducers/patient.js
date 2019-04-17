@@ -54,6 +54,13 @@ const deleteFileSuccess = (state, action) => {
      } );
 };
 
+const loadDataFileSuccess = (state, action) => {
+    return updateObject( state, { 
+        error: null,
+        loading: false,
+     } );
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.FETCH_PATIENTS_START: return fetchPatientsStart( state, action );
@@ -64,6 +71,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_FILE_SUCCESS: return fetchFilesSuccess(state, action);
         case actionTypes.FETCH_FILE_FAIL: return fetchFilesFail(state, action);
         case actionTypes.DELETE_FILE_SUCCESS: return deleteFileSuccess(state, action);
+        case actionTypes.LOAD_FILE_DATA_SUCCESS: return loadDataFileSuccess(state, action);
         default: return state;
     }
 };

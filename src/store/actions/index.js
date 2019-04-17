@@ -5,7 +5,8 @@ export {
 export {
     load,
     fetchFiles,
-    deleteFile
+    deleteFile,
+    loadData
 } from './load';
 export {
     auth,

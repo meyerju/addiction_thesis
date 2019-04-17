@@ -66,6 +66,32 @@ export const deleteFile = (fileId,patientId) => {
     };
 };
 
+export const loadDataSuccess = () => {
+    return {
+        type: actionTypes.LOAD_FILE_DATA_SUCCESS,
+    };
+};
+
+export const loadData = (fileId,patientId) => {
+    console.log(fileId)
+    let error = null;
+    return dispatch => {
+        dispatch(loadStart());
+        axios.get(URL_API + "/file/"+fileId)
+            .catch(err => {
+                error = err;
+                dispatch(loadFail(err));
+            })
+            .then(res => {
+                if (!error) {
+                    console.log("[LOAD] success, ", res)
+                    dispatch(loadDataSuccess());
+                    dispatch(fetchFiles(patientId));
+                }
+            });
+    };
+};
+
 export const fetchFilesSuccess = (files) => {
     return {
         type: actionTypes.FETCH_FILE_SUCCESS,
