@@ -2,6 +2,7 @@
 export default (() => {
 
     const presentOneTableElement = (row, cell) => {
+
         if(cell.id === "addiction_name"){
             return row[cell.id]
         }

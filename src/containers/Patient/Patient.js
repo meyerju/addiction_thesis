@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import axios from '../../axios-patients';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
+import * as filePresenter from '../../store/presenters/file';
 
 import * as actions from '../../store/actions/index';
 import styles from './Patient.css';
@@ -34,6 +36,11 @@ class Patient extends Component {
         this.props.onLoad(formData, this.props.patient.id);
     }
 
+    deleteFile(id) {
+        console.log(id)
+        this.props.onDeleteFile(id, this.props.patient.id);
+    }
+
     render() {
         let patient = null;
         if (this.props.patient) {
@@ -49,10 +56,18 @@ class Patient extends Component {
         if (this.props.files) {
             patientFiles =
                 this.props.files
-                    .map((file) => <div className={styles.info}>   <p>{file.name}</p><p>Uploaded on : {file.upload_date}</p></div>
+                    .map((file) => 
+                    <div className={styles.info}>
+                        {filePresenter.default.present(file)
+                            .map((i) =>
+                                <p>{i.label}: {i.value}</p>
+                            )
+                        }
+                        <DeleteIcon onClick={() => this.deleteFile(file.id)} />
+                    </div>
                     )
         }
-        if(this.props.loading) {
+        if (this.props.loading) {
             patientFiles = <Spinner />;
         }
         return (
@@ -79,8 +94,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLoad: (file, patientId) => dispatch(actions.load(file,patientId)),
+        onLoad: (file, patientId) => dispatch(actions.load(file, patientId)),
         fetchFiles: (patientId) => dispatch(actions.fetchFiles(patientId)),
+        onDeleteFile: (fileId, patientId) => dispatch(actions.deleteFile(fileId, patientId)),
     };
 };
 

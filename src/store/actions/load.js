@@ -40,6 +40,31 @@ export const load = (file, patientId) => {
     };
 };
 
+export const deleteSuccess = () => {
+    return {
+        type: actionTypes.DELETE_FILE_SUCCESS,
+    };
+};
+
+export const deleteFile = (fileId,patientId) => {
+    console.log(fileId)
+    let error = null;
+    return dispatch => {
+        dispatch(loadStart());
+        axios.delete(URL_API + "/files/"+fileId)
+            .catch(err => {
+                error = err;
+                dispatch(loadFail(err));
+            })
+            .then(res => {
+                if (!error) {
+                    console.log("[LOAD] success, ", res)
+                    dispatch(deleteSuccess());
+                    dispatch(fetchFiles(patientId));
+                }
+            });
+    };
+};
 
 export const fetchFilesSuccess = (files) => {
     return {

@@ -4,7 +4,8 @@ export {
 } from './patient';
 export {
     load,
-    fetchFiles
+    fetchFiles,
+    deleteFile
 } from './load';
 export {
     auth,
