@@ -23,21 +23,7 @@ export const fetchPatientsStart = () => {
 
 export const fetchPatients = (token, userId) => {
     return dispatch => {
-        dispatch(fetchPatientsStart());
-        axios.get('/patients.json')
-            .then(res => {
-                const fetchedPatients = [];
-                for (let key in res.data) {
-                    fetchedPatients.push({
-                        ...res.data[key],
-                        id: key
-                    });
-                }
-                dispatch(fetchPatientsSuccess(fetchedPatients));
-            })
-            .catch(err => {
-                dispatch(fetchPatientsFail(err));
-            });
+      
     };
 };
 

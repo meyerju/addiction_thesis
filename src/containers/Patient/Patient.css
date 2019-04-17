@@ -1,20 +1,32 @@
-.info {
-  border: 1px solid #eee;
-  box-shadow: 0 2px 3px #ccc;
-  padding: 10px;
-  margin: 10px auto;
-  box-sizing: border-box;
-}
-
-.upload {
+.Drag{
   border: 1px solid #eee;
   border: dotted 2px #ccc;
   padding: 10px;
   text-align: center;
-  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative
+}
+
+.Dragging{
+    background-color: rgba(255,255,255,.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0; 
+    right: 0;
+    z-index: 9999                             
+}
+
+.Dragging_content{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    text-align: center;
+    color: grey;
+    font-size: 36
 }
 
 .icon{
@@ -34,8 +46,8 @@
 .browse__button{
   color: #40A4C8;
   font-weight: bold;
-  background-color: white;
-  border:none;
+  background-color: white !important;
+  border:none !important;
   outline:none;
   font-size: 15px !important;
 }

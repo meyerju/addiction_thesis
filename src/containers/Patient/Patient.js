@@ -1,38 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
 import axios from '../../axios-patients';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import * as patientPresenter from '../../store/presenters/patient';
-
 import styles from './Patient.css';
 import Layout from '../../hoc/Layout/Layout';
-import DragAndDrop from '../../components/UI/DragAndDrop/DragAndDrop'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class Patient extends Component {
-    handleDrop = files => {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            // Use reader.result
-            console.log(reader.result);
-        }
-        reader.readAsText(files[0]);
+
+    state = {
+        file: null
     }
 
-    handleFiles = files => {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            // Use reader.result
-            console.log(reader.result);
-        }
-        reader.readAsText(files[0]);
+    onChange = (e) => {
+        console.log("CHANGE", e.target.files[0])
+        this.setState({ file: e.target.files[0] })
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+        this.props.onLoad(formData);
+    }
+
+    onFormSubmit = (e) => {
+        const formData = new FormData();
+        formData.append('file', this.state.file);
+        console.log(this.state.file, formData)
+        e.preventDefault() // Stop form submit
+        this.props.onLoad(formData);
     }
 
     render() {
-        console.log(this.props.patient);
         let patient = null;
         if (this.props.patient) {
             patient = <div className={styles.info}>
@@ -42,7 +40,10 @@ class Patient extends Component {
         return (
             <Layout>
                 {patient}
-                <DragAndDrop handleFiles={this.handleFiles} handleDrop={this.handleDrop} />
+                <div className={styles.Drag}>
+                    <CloudUploadIcon className={styles.icon} />
+                    <input type="file" name="file" id="file" className={styles.browse__button} onChange={this.onChange}  />
+                </div>
             </Layout>
         );
     }
@@ -56,6 +57,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        onLoad: (file) => dispatch(actions.load(file)),
     };
 };
 

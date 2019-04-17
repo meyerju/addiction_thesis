@@ -39,6 +39,7 @@ class DragAndDrop extends Component {
         div.removeEventListener('dragleave', this.handleDragOut)
         div.removeEventListener('drop', this.handleDrop)
     }
+
     render() {
         return (
             <div className={classes.Drag} ref={this.dropRef}>
@@ -51,11 +52,10 @@ class DragAndDrop extends Component {
                 }
                 <CloudUploadIcon className={classes.icon} />
                 <span className={classes.drag}>Drag and Drop your csv file here.</span>
-                <ReactFileReader handleFiles={this.props.handleFiles} fileTypes={'.csv'}>
+                <ReactFileReader handleFiles={this.props.handleFiles} fileTypes={'.xlsx'}>
                     <React.Fragment>
                         <span className={classes.browse}>Or </span>
-                        <button className={classes.browse__button}>browse</button>
-                        <span className={classes.browse}> to choose a file </span>
+                        <input type="file" className={classes.browse__button} onChange={this.props.onChange} />
                     </React.Fragment>
                 </ReactFileReader>
             </div>

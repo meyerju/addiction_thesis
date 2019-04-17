@@ -10,12 +10,14 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import patientReducer from './store/reducers/patient';
 import authReducer from './store/reducers/auth';
+import loadReducer from './store/reducers/load';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    patient: patientReducer
+    patient: patientReducer,
+    load: loadReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
