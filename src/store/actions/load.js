@@ -66,9 +66,10 @@ export const deleteFile = (fileId,patientId) => {
     };
 };
 
-export const loadDataSuccess = () => {
+export const loadDataSuccess = (data) => {
     return {
         type: actionTypes.LOAD_FILE_DATA_SUCCESS,
+        dataChart: data,
     };
 };
 
@@ -85,7 +86,7 @@ export const loadData = (fileId,patientId) => {
             .then(res => {
                 if (!error) {
                     console.log("[LOAD] success, ", res)
-                    dispatch(loadDataSuccess());
+                    dispatch(loadDataSuccess(res.data));
                     dispatch(fetchFiles(patientId));
                 }
             });

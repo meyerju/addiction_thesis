@@ -55,6 +55,7 @@ class Patient extends Component {
     }
 
     render() {
+        console.log("CHART",this.props.dataChart);
         let patient = null;
         if (this.props.patient) {
             patient =
@@ -101,8 +102,7 @@ class Patient extends Component {
                 </div>
                 {patientFiles}
                 <BarChart
-                    columns={columns}
-                    chartType={this.state.chartType} />
+                    data={this.props.dataChart['bar']} />
             </Layout>
         );
     }
@@ -113,6 +113,7 @@ const mapStateToProps = state => {
         patient: state.patient.patient,
         files: state.patient.files,
         loading: state.patient.loading,
+        dataChart: state.patient.dataChart,
     };
 };
 

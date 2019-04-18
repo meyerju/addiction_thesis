@@ -6,7 +6,8 @@ const initialState = {
     loading: false,
     purchased: false,
     patient: null,
-    files:[]
+    files:[],
+    dataChart: [],
 };
 
 const fetchPatientsStart = ( state, action ) => {
@@ -55,9 +56,11 @@ const deleteFileSuccess = (state, action) => {
 };
 
 const loadDataFileSuccess = (state, action) => {
+    console.log("reducer", action.dataChart)
     return updateObject( state, { 
         error: null,
         loading: false,
+        dataChart: action.dataChart
      } );
 };
 
