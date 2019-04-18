@@ -24,7 +24,7 @@ const columns = [
 class Patient extends Component {
 
     state = {
-        file: null,
+        activeFile: -1,
         chartType: 'bar'
 
     }
@@ -51,11 +51,16 @@ class Patient extends Component {
 
     loadData(id) {
         console.log(id)
-        this.props.onLoadData(id, this.props.patient.id);
+        if (this.state.activeFile !== id) {
+            this.setState({ activeFile: id });
+            this.props.onLoadData(id, this.props.patient.id);
+        } else {
+            this.setState({ activeFile: -1 });
+        }
     }
 
     render() {
-        console.log("CHART",this.props.dataChart);
+        console.log("CHART", this.props.files);
         let patient = null;
         if (this.props.patient) {
             patient =
@@ -75,22 +80,29 @@ class Patient extends Component {
             patientFiles =
                 this.props.files
                     .map((file) =>
-                        <div className={styles.file} key={file.id} >
-                            <div className={styles.file_info}  onClick={() => this.loadData(file.id)}>
-                                {filePresenter.default.present(file)
-                                    .map((i) =>
-                                        <span key={i.label}><span className={styles.bold}>{i.label}: </span>{i.value}</span>
-                                    )
-                                }
+                        <div className={styles.wrapper} key={file.id}>
+                            <div className={styles.file} >
+                                <div className={this.state.activeFile === file.id ? styles.file_active : styles.file_info} onClick={() => this.loadData(file.id)}>
+                                    {filePresenter.default.present(file)
+                                        .map((i) =>
+                                            <span key={i.label}><span className={styles.bold}>{i.label}: </span>{i.value}</span>
+                                        )
+                                    }
+                                </div>
+                                <div className={styles.file_icon}>
+                                    <DeleteIcon fontSize={"large"} onClick={() => this.deleteFile(file.id)} />
+                                </div>
                             </div>
-                            <div className={styles.file_icon}>
-                                <DeleteIcon fontSize={"large"} onClick={() => this.deleteFile(file.id)} />
-                            </div>
+                            { (this.state.activeFile === file.id) && (!this.props.loadingFile) &&
+                                <BarChart
+                                    className={styles.chart}
+                                    data={this.props.dataChart['bar']} />
+                            }
+                            { (this.state.activeFile === file.id) && (this.props.loadingFile) &&
+                                <Spinner />
+                            }
                         </div>
                     )
-        }
-        if (this.props.loading) {
-            patientFiles = <Spinner />;
         }
         return (
             <Layout>
@@ -101,8 +113,6 @@ class Patient extends Component {
                     <input type="file" onChange={this.onChange} />
                 </div>
                 {patientFiles}
-                <BarChart
-                    data={this.props.dataChart['bar']} />
             </Layout>
         );
     }
@@ -112,7 +122,7 @@ const mapStateToProps = state => {
     return {
         patient: state.patient.patient,
         files: state.patient.files,
-        loading: state.patient.loading,
+        loadingFile: state.patient.loading,
         dataChart: state.patient.dataChart,
     };
 };

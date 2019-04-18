@@ -8,20 +8,18 @@
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
     margin: 10px auto;
-    display:flex;
     flex-direction: column;
+    flex-grow: 1;
     justify-content: space-between;
-  }
-
-  .title{
-    padding: 10px;
-    width: 90%;
-    color: #40A4C8;
-    font-weight: bold;
     display:flex;
-  }
+    width: 100%;
+    background-color: white !important;
+}
 
-  .c3-shapes.c3-shapes-data1.c3-lines.c3-lines-data1 > path {
-    stroke: rgba(255, 0, 0, 0) !important;
-    opacity: 0 !important;
-    }
+.title{
+  padding: 10px;
+  width: 90%;
+  color: #40A4C8;
+  font-weight: bold;
+  display:flex;
+}  

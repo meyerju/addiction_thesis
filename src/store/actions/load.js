@@ -21,6 +21,19 @@ export const loadStart = () => {
     };
 };
 
+export const loadFileFail = (error) => {
+    return {
+        type: actionTypes.LOAD_FILE_FAIL,
+        error: error
+    };
+};
+
+export const loadFileStart = () => {
+    return {
+        type: actionTypes.LOAD_FILE_START
+    };
+};
+
 export const load = (file, patientId) => {
     let error = null;
     return dispatch => {
@@ -50,11 +63,11 @@ export const deleteFile = (fileId,patientId) => {
     console.log(fileId)
     let error = null;
     return dispatch => {
-        dispatch(loadStart());
+        dispatch(loadFileStart());
         axios.delete(URL_API + "/files/"+fileId)
             .catch(err => {
                 error = err;
-                dispatch(loadFail(err));
+                dispatch(loadFileFail(err));
             })
             .then(res => {
                 if (!error) {
