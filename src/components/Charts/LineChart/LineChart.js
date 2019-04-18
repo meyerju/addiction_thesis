@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import * as c3 from 'c3';
-import styles from './BarChart.css';
+import styles from './LineChart.css';
 
-class BarChart extends Component {
+class LineChart extends Component {
 
   componentDidMount() {
     this._updateChart();
@@ -24,7 +24,7 @@ class BarChart extends Component {
     if (this.props.data) {
       chart =
         <React.Fragment>
-          <div className={styles.title}>{this.props.data.axis.x.categories.length} Days Tracking - nb of incidents per day</div>
+          <div className={styles.title}>Tracking - </div>
           <div className={styles.chart} id="chart">hi</div>
         </React.Fragment>
     }
@@ -36,4 +36,4 @@ class BarChart extends Component {
   }
 }
 
-export default BarChart;
+export default LineChart;

@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import BarChart from '../../components/Charts/BarChart/BarChart';
+import LineChart from '../../components/Charts/LineChart/LineChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
@@ -97,6 +98,11 @@ class Patient extends Component {
                                 <BarChart
                                     className={styles.chart}
                                     data={this.props.dataChart['bar']} />
+                            }
+                            { (this.state.activeFile === file.id) && (!this.props.loadingFile) &&
+                                <LineChart
+                                    className={styles.chart}
+                                    data={this.props.dataChart['line']} />
                             }
                             { (this.state.activeFile === file.id) && (this.props.loadingFile) &&
                                 <Spinner />
