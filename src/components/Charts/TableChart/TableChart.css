@@ -63,12 +63,6 @@
   outline: none;
 }
 
-.table__row:hover{
-  font-weight: bold;
-  color: #40A4C8;
-  cursor: pointer;
-}
-
 .table__cell{
   display: flex;
   flex-grow: 1;
@@ -94,4 +88,9 @@
     border-top: solid 1px #ccc;
     justify-content: center;
     align-items: center;
+  }
+
+  .category{
+    color: #d50b33;
+    margin: 0px 10px;
   }

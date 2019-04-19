@@ -25,7 +25,7 @@ class BarChart extends Component {
     if (this.props.data) {
       chart =
         <React.Fragment>
-          <div className={styles.title}>{this.props.data.axis.x.categories.length} Days Tracking - nb of incidents per day</div>
+          <div className={styles.title}><span className={styles.category}>PROGRESS</span>{this.props.data.axis.x.categories.length} Days Tracking - nb of incidents per day</div>
           <div className={styles.chart} id="chartBar">hi</div>
         </React.Fragment>
     }

@@ -21,11 +21,10 @@ class LineChart extends Component {
   }
   render() {
     let chart = null;
-    console.log(this.props.data)
     if (this.props.data) {
       chart =
         <React.Fragment>
-          <div className={styles.title}>Tracking - </div>
+          <div className={styles.title}><span className={styles.category}>TIME</span> Time of all incidents for each day</div>
           <div className={styles.chart} id="chartLine">hi</div>
         </React.Fragment>
     }

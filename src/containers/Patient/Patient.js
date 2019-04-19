@@ -7,8 +7,8 @@ import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import LineChart from '../../components/Charts/LineChart/LineChart';
-import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
 import TableChart from '../../components/Charts/TableChart/TableChart';
+import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
@@ -28,7 +28,10 @@ class Patient extends Component {
 
     state = {
         activeFile: -1,
-        chartType: 'bar'
+        chartType: 'bar',
+        activeProgress: true,
+        activeTime: true,
+        activeLocation: true,
 
     }
 
@@ -52,6 +55,18 @@ class Patient extends Component {
         this.props.onDeleteFile(id, this.props.patient.id);
     }
 
+    onActiveLocation= () => {
+        this.setState({ activeLocation: !this.state.activeLocation })
+    }
+
+    onActiveProgress= () => {
+        this.setState({ activeProgress: !this.state.activeProgress })
+    }
+
+    onActiveTime= () => {
+        this.setState({ activeTime: !this.state.activeTime })
+    }
+
     loadData(id) {
         console.log(id)
         if (this.state.activeFile !== id) {
@@ -63,7 +78,6 @@ class Patient extends Component {
     }
 
     render() {
-        console.log("CHART", this.props.files);
         let patient = null;
         if (this.props.patient) {
             patient =
@@ -96,17 +110,42 @@ class Patient extends Component {
                                 </div>
                             </div>
                             {(this.state.activeFile === file.id) && (!this.props.loadingFile) &&
+                                <div className={styles.tags} >
+                                    <button onClick={this.onActiveTime} className={this.state.activeTime ? styles.tag : styles.tag_inactive}>TIME</button>
+                                    <button onClick={this.onActiveLocation} className={this.state.activeLocation ? styles.tag : styles.tag_inactive}>LOCATION</button>
+                                    <button onClick={this.onActiveProgress} className={this.state.activeProgress ? styles.tag : styles.tag_inactive}>PROGRESS</button>
+                                </div>
+                            }
+                            {(this.state.activeFile === file.id) && (!this.props.loadingFile) &&
                                 <React.Fragment>
-                                    <TableChart
-                                        className={styles.chart}
-                                        data={this.props.dataChart["table"]} />
+
+                                    {this.state.activeTime &&
+                                        <React.Fragment>
+                                            <LineChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["line"]} />
+                                            <TableChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["table"]} />
+                                            <TimePieChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["timePie"]} />
+                                        </React.Fragment>
+                                    }
+                                    {this.state.activeProgress &&
+                                        <React.Fragment>
+                                            <BarChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["bar"]} />
+                                        </React.Fragment>
+                                    }
                                 </React.Fragment>
                             }
 
                             {(this.state.activeFile === file.id) && (this.props.loadingFile) &&
                                 <Spinner />
                             }
-                           
+
                         </div>
                     )
         }

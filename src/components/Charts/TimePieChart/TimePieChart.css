@@ -23,3 +23,8 @@
   font-weight: bold;
   display:flex;
 }  
+
+.category{
+  color: #d50b33;
+  margin: 0px 10px;
+}

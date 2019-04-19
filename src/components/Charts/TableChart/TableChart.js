@@ -10,7 +10,7 @@ class TableChart extends Component {
     if (this.props.data) {
       chart =
         <React.Fragment>
-          <div className={styles.title}>Distribution of observations on hours of the day</div>
+          <div className={styles.title}><span className={styles.category}>TIME</span> Distribution of observations on hours of the day</div>
           <div className={styles.table}>
             <div className={styles.header}>
               {this.props.data
