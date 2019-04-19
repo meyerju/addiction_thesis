@@ -13,7 +13,7 @@ class BarChart extends Component {
   _updateChart() {
     if (this.props.data) {
       const chart = c3.generate({
-        bindto: '#chart',
+        bindto: '#chartBar',
         data: this.props.data.data,
         axis: this.props.data.axis
       });
@@ -21,11 +21,12 @@ class BarChart extends Component {
   }
   render() {
     let chart = null;
+    console.log(this.props.data)
     if (this.props.data) {
       chart =
         <React.Fragment>
           <div className={styles.title}>{this.props.data.axis.x.categories.length} Days Tracking - nb of incidents per day</div>
-          <div className={styles.chart} id="chart">hi</div>
+          <div className={styles.chart} id="chartBar">hi</div>
         </React.Fragment>
     }
     return (

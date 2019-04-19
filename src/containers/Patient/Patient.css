@@ -55,6 +55,10 @@
   color: #40A4C8;
 }
 
+.file_active:hover{
+  cursor: pointer;
+}
+
 .file_info:hover{
   color: #40A4C8;
   cursor: pointer;

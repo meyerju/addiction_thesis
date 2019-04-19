@@ -7,6 +7,7 @@ import TitleBanner from "../../components/UI/TitleBanner/TitleBanner";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import LineChart from '../../components/Charts/LineChart/LineChart';
+import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
@@ -75,7 +76,6 @@ class Patient extends Component {
         } else {
             patient = <Redirect to="/" />;
         }
-
         let patientFiles = null;
         if (this.props.files) {
             patientFiles =
@@ -94,19 +94,18 @@ class Patient extends Component {
                                     <DeleteIcon fontSize={"large"} onClick={() => this.deleteFile(file.id)} />
                                 </div>
                             </div>
-                            { (this.state.activeFile === file.id) && (!this.props.loadingFile) &&
-                                <BarChart
-                                    className={styles.chart}
-                                    data={this.props.dataChart['bar']} />
+                            {(this.state.activeFile === file.id) && (!this.props.loadingFile) &&
+                                <React.Fragment>
+                                    <TimePieChart
+                                        className={styles.chart}
+                                        data={this.props.dataChart["timePie"]} />
+                                </React.Fragment>
                             }
-                            { (this.state.activeFile === file.id) && (!this.props.loadingFile) &&
-                                <LineChart
-                                    className={styles.chart}
-                                    data={this.props.dataChart['line']} />
-                            }
-                            { (this.state.activeFile === file.id) && (this.props.loadingFile) &&
+
+                            {(this.state.activeFile === file.id) && (this.props.loadingFile) &&
                                 <Spinner />
                             }
+                           
                         </div>
                     )
         }

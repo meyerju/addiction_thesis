@@ -13,7 +13,7 @@ class LineChart extends Component {
   _updateChart() {
     if (this.props.data) {
       const chart = c3.generate({
-        bindto: '#chart',
+        bindto: '#chartLine',
         data: this.props.data.data,
         axis: this.props.data.axis
       });
@@ -21,11 +21,12 @@ class LineChart extends Component {
   }
   render() {
     let chart = null;
+    console.log(this.props.data)
     if (this.props.data) {
       chart =
         <React.Fragment>
           <div className={styles.title}>Tracking - </div>
-          <div className={styles.chart} id="chart">hi</div>
+          <div className={styles.chart} id="chartLine">hi</div>
         </React.Fragment>
     }
     return (
