@@ -31,15 +31,15 @@ class TimePieChart extends Component {
         <React.Fragment>
           {result
             .map((elt, index) =>
-              <React.Fragment key={index} >
+              <div className={styles.wrapper} key={index} >
                 <div className={styles.title}><span className={styles.category}>TIME</span> {elt[0].toUpperCase()}: Distribution of observations on the period of the day</div>
                 <div className={styles.chart} id={"chartTimePie" + elt[0]}>{elt[0]}</div>
-              </React.Fragment>)
+              </div>)
           }
         </React.Fragment>
     }
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.container}>
         {chart}
       </div>
     )

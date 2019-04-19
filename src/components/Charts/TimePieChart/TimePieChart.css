@@ -4,15 +4,21 @@
     margin: 1em auto;
   }
 
+  .container{
+    display:flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px auto;
+  }
+
 .wrapper {
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
-    margin: 10px auto;
     flex-direction: column;
-    flex-grow: 1;
     justify-content: space-between;
     display:flex;
-    width: 100%;
+    width: 49%;
     background-color: white !important;
 }
 
