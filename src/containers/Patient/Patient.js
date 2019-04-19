@@ -81,7 +81,7 @@ class Patient extends Component {
         let patient = null;
         if (this.props.patient) {
             patient =
-                <div className={styles.file_info}>
+                <div className={styles.patient_info}>
                     {patientPresenter.default.present(this.props.patient)
                         .map((i) =>
                             <span key={i.label}><span className={styles.bold}>{i.label}: </span>{i.value}</span>
@@ -102,6 +102,13 @@ class Patient extends Component {
                                     {filePresenter.default.present(file)
                                         .map((i) =>
                                             <span key={i.label}><span className={styles.bold}>{i.label}: </span>{i.value}</span>
+                                        )
+                                    }
+                                </div>
+                                <div className={this.state.activeFile === file.id ? styles.file_active : styles.file_info} onClick={() => this.loadData(file.id)}>
+                                    {filePresenter.default.presentClicks(file)
+                                        .map((i) =>
+                                            <span key={i.label}><span className={styles.bold}>{i.value}</span> tracked with <span className={styles.bold}>{i.label}</span> method </span>
                                         )
                                     }
                                 </div>
@@ -151,11 +158,12 @@ class Patient extends Component {
         }
         return (
             <Layout>
+                <TitleBanner title={"Patient"} />
                 {patient}
                 <TitleBanner title={"Uploaded Files"} />
                 <div className={styles.Drag}>
-                    <p>Upload a new excel file here</p>
-                    <input type="file" onChange={this.onChange} />
+                    <p className={styles.Drag_title}>Upload a new excel file here: 
+                    <input type="file" onChange={this.onChange} className={styles.Drag_input}/></p>
                 </div>
                 {patientFiles}
             </Layout>

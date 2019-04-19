@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as c3 from 'c3';
+import * as d3 from 'd3';
 import styles from './LineChart.css';
 
 class LineChart extends Component {
@@ -17,6 +18,8 @@ class LineChart extends Component {
         data: this.props.data.data,
         axis: this.props.data.axis
       });
+      d3.selectAll("circle")
+        .attr("r", 10);
     }
   }
   render() {

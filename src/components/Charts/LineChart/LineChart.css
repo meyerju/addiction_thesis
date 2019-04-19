@@ -28,3 +28,7 @@
   color: #d50b33;
   margin: 0px 10px;
 }
+
+circle{
+  r: 10 !important; 
+}

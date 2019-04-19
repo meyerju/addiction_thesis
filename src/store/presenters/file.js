@@ -8,7 +8,7 @@ export default (() => {
         }
         return date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()+" "+date.getHours()+":"+date.getMinutes()
     };
-
+    
     const present = (file) => {
         return [
             { label: "Name", value:file.name},
@@ -16,7 +16,15 @@ export default (() => {
         ]
     };
 
+    const presentClicks = (file) => {
+        return [
+            { label: file.file_details[0].action_type.name, value:file.file_details[0].name},
+            { label: file.file_details[1].action_type.name, value:file.file_details[1].name}
+        ]
+    };
+
     return {
         present,
+        presentClicks
     };
 })();

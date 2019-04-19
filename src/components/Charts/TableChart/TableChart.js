@@ -15,8 +15,8 @@ class TableChart extends Component {
             <div className={styles.header}>
               {this.props.data
                 .map(
-                  (column) => (
-                    <div className={styles.header__cell} key={column[0]}>
+                  (column, index) => (
+                    <div className={styles.header__cell} key={column[0]+index*2}>
                       <span> {column[0]}</span>
                     </div>
                   ), this)
@@ -25,12 +25,12 @@ class TableChart extends Component {
             <div className={styles.table__body}>
               {this.props.data
                 .map(
-                  (column) => (
-                    <div className={styles.table__row} key={column[0]}>
+                  (column,index) => (
+                    <div className={styles.table__row} key={"column_"+index}>
                       {column
                         .map((cell, index) => {
                           if (index !== 0) {
-                            return <div className={styles.table__cell} key={cell}>
+                            return <div className={styles.table__cell} key={"cell_"+index}>
                               <span>{cell}</span>
                             </div>
                           }

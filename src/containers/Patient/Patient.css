@@ -1,8 +1,30 @@
 .Drag{
-  border: 1px solid #eee;
-  border: dotted 2px #ccc;
   padding: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 10px 40px;
+  display:flex;
+  flex-direction: row;
+  background-color: #40A4C8 !important;
+  justify-content: space-between;
 }
+
+.Drag_title{
+  font-weight: bold;
+  color:white;
+}
+
+.Drag_input{
+  font-weight: normal !important;
+  color: black !important;
+  padding: 0px 10px
+}
+
+.Drag_input:hover{
+  cursor: pointer;
+  outline: none;
+}
+
 .icon{
   color: grey;
   font-size: 150px !important;
@@ -95,13 +117,25 @@
 
 .file_info{
   display:flex;
+  flex-grow: 1;
   flex-direction: column;
+  padding: 0px 30px;
+  border-right: lightgrey solid 0.5px;
+}
+
+.patient_info{
+  display:flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 0px 10px;
 }
 
 .file_active{
   display:flex;
   flex-direction: column;
   color: #40A4C8;
+  padding: 0px 30px;
+  border-right: lightgrey solid 0.5px;
 }
 
 .file_active:hover{
@@ -116,6 +150,7 @@
 .file_icon{
   display:flex;
   font-size: 30px;
+  padding: 0px 30px;
   color: #d50b33;
   align-items: center;
 }
