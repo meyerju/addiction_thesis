@@ -8,6 +8,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import LineChart from '../../components/Charts/LineChart/LineChart';
 import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
+import TableChart from '../../components/Charts/TableChart/TableChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
@@ -96,9 +97,9 @@ class Patient extends Component {
                             </div>
                             {(this.state.activeFile === file.id) && (!this.props.loadingFile) &&
                                 <React.Fragment>
-                                    <TimePieChart
+                                    <TableChart
                                         className={styles.chart}
-                                        data={this.props.dataChart["timePie"]} />
+                                        data={this.props.dataChart["table"]} />
                                 </React.Fragment>
                             }
 
