@@ -27,7 +27,7 @@ class Patient extends Component {
         activeProgress: true,
         activeTime: true,
         activeLocation: true,
-
+        loading: false,
     }
 
     componentDidMount() {
@@ -49,22 +49,22 @@ class Patient extends Component {
         this.props.onDeleteFile(id, this.props.patient.id);
     }
 
-    onActiveLocation= () => {
+    onActiveLocation = () => {
         this.setState({ activeLocation: !this.state.activeLocation })
     }
 
-    onActiveProgress= () => {
+    onActiveProgress = () => {
         this.setState({ activeProgress: !this.state.activeProgress })
     }
 
-    onActiveTime= () => {
+    onActiveTime = () => {
         this.setState({ activeTime: !this.state.activeTime })
     }
 
     loadData(id) {
         console.log(id)
         if (this.state.activeFile !== id) {
-            this.setState({ activeFile: id });
+            this.setState({ activeFile: id, loading: true });
             this.props.onLoadData(id, this.props.patient.id);
         } else {
             this.setState({ activeFile: -1 });
@@ -84,6 +84,9 @@ class Patient extends Component {
                 </div>
         } else {
             patient = <Redirect to="/" />;
+        }
+        if (this.props.loadingFile && this.state.loading) {
+            this.setState({ loading: false });
         }
         let patientFiles = null;
         if (this.props.files) {
@@ -110,16 +113,22 @@ class Patient extends Component {
                                     <DeleteIcon fontSize={"large"} onClick={() => this.deleteFile(file.id)} />
                                 </div>
                             </div>
-                            {(this.state.activeFile === file.id) && (!this.props.loadingFile) &&
-                                <div className={styles.tags} >
-                                    <button onClick={this.onActiveTime} className={this.state.activeTime ? styles.tag : styles.tag_inactive}>TIME</button>
-                                    <button onClick={this.onActiveLocation} className={this.state.activeLocation ? styles.tag : styles.tag_inactive}>LOCATION</button>
-                                    <button onClick={this.onActiveProgress} className={this.state.activeProgress ? styles.tag : styles.tag_inactive}>PROGRESS</button>
-                                </div>
-                            }
-                            {(this.state.activeFile === file.id) && (!this.props.loadingFile) &&
+                            {(this.state.activeFile === file.id) && !((this.props.loadingFile) || (this.state.loading)) &&
                                 <React.Fragment>
+                                    <div className={styles.tags} >
+                                        <button onClick={this.onActiveTime} className={this.state.activeTime ? styles.tag : styles.tag_inactive}>TIME</button>
+                                        <button onClick={this.onActiveLocation} className={this.state.activeLocation ? styles.tag : styles.tag_inactive}>LOCATION</button>
+                                        <button onClick={this.onActiveProgress} className={this.state.activeProgress ? styles.tag : styles.tag_inactive}>PROGRESS</button>
+                                    </div>
 
+                                    {this.state.activeLocation &&
+                                        <React.Fragment>
+                                            <TimePieChart
+                                                className={styles.chart}
+                                                type="LOCATION"
+                                                data={this.props.dataChart["mapPie"]} />
+                                        </React.Fragment>
+                                    }
                                     {this.state.activeTime &&
                                         <React.Fragment>
                                             <LineChart
@@ -141,18 +150,10 @@ class Patient extends Component {
                                                 data={this.props.dataChart["bar"]} />
                                         </React.Fragment>
                                     }
-                                    {this.state.activeLocation &&
-                                        <React.Fragment>
-                                            <TimePieChart
-                                                className={styles.chart}
-                                                type="LOCATION"
-                                                data={this.props.dataChart["mapPie"]} />
-                                        </React.Fragment>
-                                    }
                                 </React.Fragment>
                             }
 
-                            {(this.state.activeFile === file.id) && (this.props.loadingFile) &&
+                            {(this.state.activeFile === file.id) && ((this.props.loadingFile) || (this.state.loading)) &&
                                 <Spinner />
                             }
 
@@ -165,8 +166,8 @@ class Patient extends Component {
                 {patient}
                 <TitleBanner title={"Uploaded Files"} />
                 <div className={styles.Drag}>
-                    <p className={styles.Drag_title}>Upload a new excel file here: 
-                    <input type="file" onChange={this.onChange} className={styles.Drag_input}/></p>
+                    <p className={styles.Drag_title}>Upload a new excel file here:
+                    <input type="file" onChange={this.onChange} className={styles.Drag_input} /></p>
                 </div>
                 {patientFiles}
             </Layout>
