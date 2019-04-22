@@ -13,7 +13,7 @@ class LineChart extends Component {
   }
   _updateChart() {
     if (this.props.data) {
-      const chart = c3.generate({
+      c3.generate({
         bindto: '#chartLine',
         data: this.props.data.data,
         axis: this.props.data.axis

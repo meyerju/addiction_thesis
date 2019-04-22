@@ -19,11 +19,6 @@ import * as filePresenter from '../../store/presenters/file';
 import * as actions from '../../store/actions/index';
 import styles from './Patient.css';
 
-const columns = [
-    ['My Numbers', 30, 200, 100, 400, 150, 250],
-    ['Your Numbers', 50, 20, 10, 40, 15, 25]
-];
-
 class Patient extends Component {
 
     state = {
@@ -42,7 +37,6 @@ class Patient extends Component {
     }
 
     onChange = (e) => {
-        console.log("CHANGE", e.target.files[0])
         this.setState({ file: e.target.files[0] })
         const formData = new FormData();
         formData.append('patient', this.props.patient.id);
@@ -136,6 +130,7 @@ class Patient extends Component {
                                                 data={this.props.dataChart["table"]} />
                                             <TimePieChart
                                                 className={styles.chart}
+                                                type="TIME"
                                                 data={this.props.dataChart["timePie"]} />
                                         </React.Fragment>
                                     }
@@ -144,6 +139,14 @@ class Patient extends Component {
                                             <BarChart
                                                 className={styles.chart}
                                                 data={this.props.dataChart["bar"]} />
+                                        </React.Fragment>
+                                    }
+                                    {this.state.activeLocation &&
+                                        <React.Fragment>
+                                            <TimePieChart
+                                                className={styles.chart}
+                                                type="LOCATION"
+                                                data={this.props.dataChart["mapPie"]} />
                                         </React.Fragment>
                                     }
                                 </React.Fragment>

@@ -14,13 +14,17 @@ class TimePieChart extends Component {
     if (this.props.data) {
       for (var key in this.props.data) {
         c3.generate({
-          bindto: '#chartTimePie' + key,
+          bindto: '#chartTimePie' + key + this.props.type,
           data: this.props.data[key].data,
         });
       }
     }
   }
   render() {
+    let title = "Distribution of observations on the period of the day";
+    if(this.props.type === "LOCATION"){
+      title = "Distribution of observations per location";
+    }
     let chart = null;
     if (this.props.data) {
       var result = [];
@@ -32,8 +36,8 @@ class TimePieChart extends Component {
           {result
             .map((elt, index) =>
               <div className={styles.wrapper} key={index} >
-                <div className={styles.title}><span className={styles.category}>TIME</span> {elt[0].toUpperCase()}: Distribution of observations on the period of the day</div>
-                <div className={styles.chart} id={"chartTimePie" + elt[0]}>{elt[0]}</div>
+                <div className={styles.title}><span className={styles.category}>{this.props.type}</span> {elt[0].toUpperCase()}: {title}</div>
+                <div className={styles.chart} id={"chartTimePie" + elt[0] +this.props.type}>{elt[0]}</div>
               </div>)
           }
         </React.Fragment>

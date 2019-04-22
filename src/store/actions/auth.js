@@ -119,7 +119,6 @@ export const signIn = (authData, dispatch) => {
         delete authData.password;
         axios.post(URL_API+'/login', authData).then(data => {
             if (data) {
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
                 localStorage.setItem('token', response.data.idToken);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
             } else {

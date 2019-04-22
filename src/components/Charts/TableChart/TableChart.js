@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as c3 from 'c3';
 import styles from './TableChart.css';
 
 class TableChart extends Component {
@@ -33,7 +32,7 @@ class TableChart extends Component {
                             return <div className={styles.table__cell} key={"cell_"+index}>
                               <span>{cell}</span>
                             </div>
-                          }
+                          } return null
                         }
                         )
                       }
