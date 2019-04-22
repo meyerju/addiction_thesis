@@ -9,6 +9,7 @@ import BarChart from '../../components/Charts/BarChart/BarChart';
 import LineChart from '../../components/Charts/LineChart/LineChart';
 import TableChart from '../../components/Charts/TableChart/TableChart';
 import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
+import MapChart from '../../components/Charts/MapChart/MapChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
@@ -123,6 +124,9 @@ class Patient extends Component {
 
                                     {this.state.activeLocation &&
                                         <React.Fragment>
+                                            <MapChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["map"]} />
                                             <TimePieChart
                                                 className={styles.chart}
                                                 type="LOCATION"
