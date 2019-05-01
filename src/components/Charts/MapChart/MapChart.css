@@ -30,10 +30,6 @@
   margin: 0px 10px;
 }
 
-circle{
-  r: 10 !important; 
-}
-
 .markerClusterSmall {
     border-radius: 20px;
     font-size: 0.6vw;

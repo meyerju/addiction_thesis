@@ -5,7 +5,6 @@ class TableChart extends Component {
 
   render() {
     let chart = null;
-    console.log(this.props.data)
     if (this.props.data) {
       chart =
         <React.Fragment>

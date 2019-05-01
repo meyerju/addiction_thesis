@@ -59,12 +59,12 @@ export const deleteSuccess = () => {
     };
 };
 
-export const deleteFile = (fileId,patientId) => {
+export const deleteFile = (fileId, patientId) => {
     console.log(fileId)
     let error = null;
     return dispatch => {
         dispatch(loadFileStart());
-        axios.delete(URL_API + "/files/"+fileId)
+        axios.delete(URL_API + "/files/" + fileId)
             .catch(err => {
                 error = err;
                 dispatch(loadFileFail(err));
@@ -86,21 +86,23 @@ export const loadDataSuccess = (data) => {
     };
 };
 
-export const loadData = (fileId,patientId) => {
+export const loadData = (fileId, patientId) => {
     console.log(fileId)
     let error = null;
     return dispatch => {
         dispatch(loadStart());
-        axios.get(URL_API + "/file/"+fileId)
+        axios.get(URL_API + "/file/" + fileId)
             .catch(err => {
                 error = err;
                 dispatch(loadFail(err));
             })
             .then(res => {
-                if (!error) {
+                if (!error && res) {
                     console.log("[LOAD] success, ", res)
                     dispatch(loadDataSuccess(res.data));
                     dispatch(fetchFiles(patientId));
+                } else {
+                    dispatch(loadFail("Check your connexion."));
                 }
             });
     };
@@ -109,7 +111,7 @@ export const loadData = (fileId,patientId) => {
 export const fetchFilesSuccess = (files) => {
     return {
         type: actionTypes.FETCH_FILE_SUCCESS,
-        files:files
+        files: files
     };
 };
 

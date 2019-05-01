@@ -9,6 +9,7 @@ import BarChart from '../../components/Charts/BarChart/BarChart';
 import LineChart from '../../components/Charts/LineChart/LineChart';
 import TableChart from '../../components/Charts/TableChart/TableChart';
 import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
+import StepChart from '../../components/Charts/StepChart/StepChart';
 import MapChart from '../../components/Charts/MapChart/MapChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
@@ -25,9 +26,9 @@ class Patient extends Component {
     state = {
         activeFile: -1,
         chartType: 'bar',
-        activeProgress: true,
+        activeProgress: false,
         activeTime: true,
-        activeLocation: true,
+        activeLocation: false,
         loading: false,
     }
 
@@ -122,6 +123,27 @@ class Patient extends Component {
                                         <button onClick={this.onActiveProgress} className={this.state.activeProgress ? styles.tag : styles.tag_inactive}>PROGRESS</button>
                                     </div>
 
+                                    {this.state.activeTime &&
+                                        <React.Fragment>
+                                            <BarChart
+                                                className={styles.chart}
+                                                type="TIME"
+                                                title="hours"
+                                                data={this.props.dataChart["table"]} />
+                                            <TimePieChart
+                                                className={styles.chart}
+                                                type="TIME"
+                                                data={this.props.dataChart["timePie"]} />
+                                            <BarChart
+                                                className={styles.chart}
+                                                type="TIME"
+                                                title="periode"
+                                                data={this.props.dataChart["periodeBar"]} />
+                                            <LineChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["line"]} />
+                                        </React.Fragment>
+                                    }
                                     {this.state.activeLocation &&
                                         <React.Fragment>
                                             <MapChart
@@ -133,25 +155,16 @@ class Patient extends Component {
                                                 data={this.props.dataChart["mapPie"]} />
                                         </React.Fragment>
                                     }
-                                    {this.state.activeTime &&
-                                        <React.Fragment>
-                                            <LineChart
-                                                className={styles.chart}
-                                                data={this.props.dataChart["line"]} />
-                                            <TableChart
-                                                className={styles.chart}
-                                                data={this.props.dataChart["table"]} />
-                                            <TimePieChart
-                                                className={styles.chart}
-                                                type="TIME"
-                                                data={this.props.dataChart["timePie"]} />
-                                        </React.Fragment>
-                                    }
                                     {this.state.activeProgress &&
                                         <React.Fragment>
                                             <BarChart
                                                 className={styles.chart}
+                                                type="PROGRESS"
+                                                title="progress"
                                                 data={this.props.dataChart["bar"]} />
+                                            <StepChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["step"]} />
                                         </React.Fragment>
                                     }
                                 </React.Fragment>

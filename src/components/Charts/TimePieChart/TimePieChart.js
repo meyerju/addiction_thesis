@@ -14,16 +14,20 @@ class TimePieChart extends Component {
     if (this.props.data) {
       for (var key in this.props.data) {
         c3.generate({
-          bindto: '#chartTimePie' + key + this.props.type,
+          bindto: '#chartTimePie' + key[0] + this.props.type,
           data: this.props.data[key].data,
+          donut: {
+            label: { format: function (value, ratio, id) { return value; } },
+            title: key.toUpperCase()
+          }
         });
       }
     }
   }
   render() {
-    let title = "Distribution of observations on the period of the day";
-    if(this.props.type === "LOCATION"){
-      title = "Distribution of observations per location";
+    let title = "Total number of reports per period of the day";
+    if (this.props.type === "LOCATION") {
+      title = "Total number of reports per location";
     }
     let chart = null;
     if (this.props.data) {
@@ -36,8 +40,8 @@ class TimePieChart extends Component {
           {result
             .map((elt, index) =>
               <div className={styles.wrapper} key={index} >
-                <div className={styles.title}><span className={styles.category}>{this.props.type}</span> {elt[0].toUpperCase()}: {title}</div>
-                <div className={styles.chart} id={"chartTimePie" + elt[0] +this.props.type}>{elt[0]}</div>
+                <div className={styles.title}><span className={styles.category}>{this.props.type}</span>{title}</div>
+                <div className={styles.chart} id={"chartTimePie" + elt[0][0] + this.props.type}>{elt[0]}</div>
               </div>)
           }
         </React.Fragment>

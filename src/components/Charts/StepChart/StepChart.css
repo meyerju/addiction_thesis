@@ -28,21 +28,3 @@
   color: #d50b33;
   margin: 0px 10px;
 }
-
-.wrapper circle{
-  opacity: 1 !important;
-  r: 4 !important; 
-
-}
-
-.wrapper .grid .tick {
-  stroke: lightgrey !important;
-  opacity: 0.7 !important;
-}
-.wrapper .grid path {
-    stroke-width: 0 !important;
-}
-
-.c3-circle {
-  opacity: 1 !important;
-  }
