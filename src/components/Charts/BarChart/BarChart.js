@@ -13,7 +13,6 @@ class BarChart extends Component {
   }
   _updateChart() {
     if (this.props.data) {
-      console.log("bar", this.props.data.data)
       c3.generate({
         bindto: '#chartBar'+this.props.type+this.props.title,
         data: {
@@ -31,6 +30,9 @@ class BarChart extends Component {
     }
     if (this.props.title === "periode") {
       title = "Total number of reports per periode of the day";
+    }
+    if (this.props.title === "days") {
+      title = "Total number of reports per day";
     }
     let chart = null;
     if (this.props.data) {

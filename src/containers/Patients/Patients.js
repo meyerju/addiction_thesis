@@ -10,6 +10,7 @@ import * as patientPresenter from '../../store/presenters/patient';
 
 import styles from './Patients.css';
 import Layout from '../../hoc/Layout/Layout';
+import BubbleChart from '../../components/Charts/BubbleChart/BubbleChart';
 
 class Patients extends Component {
     state = {

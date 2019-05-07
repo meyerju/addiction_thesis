@@ -11,6 +11,8 @@ import TableChart from '../../components/Charts/TableChart/TableChart';
 import TimePieChart from '../../components/Charts/TimePieChart/TimePieChart';
 import StepChart from '../../components/Charts/StepChart/StepChart';
 import MapChart from '../../components/Charts/MapChart/MapChart';
+import BubbleChart from '../../components/Charts/BubbleChart/BubbleChart';
+import HeatMapChart from '../../components/Charts/HeatMapChart/HeatMapChart';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Layout from '../../hoc/Layout/Layout';
@@ -125,6 +127,9 @@ class Patient extends Component {
 
                                     {this.state.activeTime &&
                                         <React.Fragment>
+                                            <BubbleChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["bubble"]} />
                                             <BarChart
                                                 className={styles.chart}
                                                 type="TIME"
@@ -137,14 +142,19 @@ class Patient extends Component {
                                             <BarChart
                                                 className={styles.chart}
                                                 type="TIME"
-                                                title="periode"
                                                 data={this.props.dataChart["periodeBar"]} />
+                                            <BarChart
+                                                className={styles.chart}
+                                                type="TIME"
+                                                title="days"
+                                                data={this.props.dataChart["bar"]} />
                                             <LineChart
                                                 className={styles.chart}
                                                 data={this.props.dataChart["line"]} />
+                                            <HeatMapChart className={styles.chart} data={this.props.dataChart["heatMap"]} />
                                         </React.Fragment>
                                     }
-                                    {this.state.activeLocation &&
+                                    {/* {this.state.activeLocation &&
                                         <React.Fragment>
                                             <MapChart
                                                 className={styles.chart}
@@ -166,7 +176,7 @@ class Patient extends Component {
                                                 className={styles.chart}
                                                 data={this.props.dataChart["step"]} />
                                         </React.Fragment>
-                                    }
+                                    } */}
                                 </React.Fragment>
                             }
 
