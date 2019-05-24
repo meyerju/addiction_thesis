@@ -24,7 +24,7 @@ class BubbleChart extends React.Component {
           type: 'category',
           title: {
             text: "hours",
-          }
+          }, 
         },
         yaxis: {
           forceNiceScale: true,

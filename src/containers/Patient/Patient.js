@@ -127,9 +127,6 @@ class Patient extends Component {
 
                                     {this.state.activeTime &&
                                         <React.Fragment>
-                                            <BubbleChart
-                                                className={styles.chart}
-                                                data={this.props.dataChart["bubble"]} />
                                             <BarChart
                                                 className={styles.chart}
                                                 type="TIME"
@@ -148,9 +145,12 @@ class Patient extends Component {
                                                 type="TIME"
                                                 title="days"
                                                 data={this.props.dataChart["bar"]} />
-                                            <LineChart
+                                            {/* <LineChart
                                                 className={styles.chart}
-                                                data={this.props.dataChart["line"]} />
+                                                data={this.props.dataChart["line"]} /> */}
+                                            <BubbleChart
+                                                className={styles.chart}
+                                                data={this.props.dataChart["bubble"]} />
                                             <HeatMapChart className={styles.chart} data={this.props.dataChart["heatMap"]} />
                                         </React.Fragment>
                                     }
