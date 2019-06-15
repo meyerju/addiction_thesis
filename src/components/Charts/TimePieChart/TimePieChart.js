@@ -25,9 +25,9 @@ class TimePieChart extends Component {
     }
   }
   render() {
-    let title = "Total number of reports per period of the day";
+    let title = "Total number of incidents per period of the day";
     if (this.props.type === "LOCATION") {
-      title = "Total number of reports per location";
+      title = "Total number of incidents per location";
     }
     let chart = null;
     if (this.props.data) {

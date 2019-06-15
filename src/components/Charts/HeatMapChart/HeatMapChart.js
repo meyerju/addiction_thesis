@@ -102,7 +102,7 @@ class HeatMapChart extends Component {
   render() {
     let title = "";
     if (this.props.data) {
-      title = this.props.data.days.length+" Tracking Days - Intensity of URGE reports per hour";
+      title = this.props.data.days.length+" Tracking Days - Intensity of URGE incidents per hour";
     }
     return (
       <div className={styles.wrapper}>

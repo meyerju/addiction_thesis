@@ -24,15 +24,15 @@ class BarChart extends Component {
     }
   }
   render() {
-    let title = "Total number of reports per hour";
+    let title = "Total number of incidents per hour";
     if (this.props.type === "PROGRESS") {
       title = this.props.data.axis.x.categories.length +"Days Tracking - nb of incidents per day";
     }
     if (this.props.title === "periode") {
-      title = "Total number of reports per periode of the day";
+      title = "Total number of incidents per periode of the day";
     }
     if (this.props.title === "days") {
-      title = "Total number of reports per day";
+      title = "Total number of incidents per day";
     }
     let chart = null;
     if (this.props.data) {

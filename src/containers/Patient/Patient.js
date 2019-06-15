@@ -119,11 +119,11 @@ class Patient extends Component {
                             </div>
                             {(this.state.activeFile === file.id) && !((this.props.loadingFile) || (this.state.loading)) &&
                                 <React.Fragment>
-                                    <div className={styles.tags} >
+                                    {/* <div className={styles.tags} >
                                         <button onClick={this.onActiveTime} className={this.state.activeTime ? styles.tag : styles.tag_inactive}>TIME</button>
                                         <button onClick={this.onActiveLocation} className={this.state.activeLocation ? styles.tag : styles.tag_inactive}>LOCATION</button>
                                         <button onClick={this.onActiveProgress} className={this.state.activeProgress ? styles.tag : styles.tag_inactive}>PROGRESS</button>
-                                    </div>
+                                    </div> */}
 
                                     {this.state.activeTime &&
                                         <React.Fragment>
